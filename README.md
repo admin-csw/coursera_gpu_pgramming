@@ -35,12 +35,20 @@ Coursera 스페셜라이제이션 설명에 따르면, 학습자는 보통 **최
 
 ```text
 course-01-concurrent-gpu/
+  labs/
+  assignments/
 course-02-cuda-intro/
+  labs/
+  assignments/
 course-03-cuda-at-scale/
+  labs/
+  assignments/
 course-04-advanced-libraries/
+  labs/
+  assignments/
 ```
 
-각 과목 아래에는 실습, 스타터 코드, 본인 풀이를 폴더 이름으로 구분해 두면 나중에 과제·프로젝트를 다시 찾기 쉽습니다.
+각 과목 아래 **`labs/`**에는 강의 실습 코드를, **`assignments/`**에는 과제·프로젝트 풀이를 두면 나중에 다시 찾기 쉽습니다.
 
 ## 환경 안내
 
