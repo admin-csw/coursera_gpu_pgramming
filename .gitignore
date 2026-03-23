@@ -1,0 +1,42 @@
+# Build / binaries
+build/
+out/
+cmake-build-*/
+*.o
+*.obj
+*.exe
+*.app
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# CUDA
+*.i
+*.ii
+*.gpu
+*.ptx
+*.cubin
+*.fatbin
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Python (course 1 등)
+__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+.env
+
+# IDE / OS
+.DS_Store
+.idea/
+*.swp
+*~
