@@ -19,7 +19,7 @@
 | # | 과목명 | 내용 요약 |
 |---|--------|-----------|
 | 1 | Introduction to Concurrent Programming with GPUs | Python·C/C++ 동시성 소프트웨어; GPU 하드웨어·소프트웨어 아키텍처 입문 |
-| 2 | Introduction to Parallel Programming with CUDA | CPU + NVIDIA GPU용 CUDA; 순차 알고리즘을 GPU에서 대규모로 도는 커널로 전환 |
+| 2 | Introduction to Parallel Programming with CUDA | CPU + NVIDIA GPU용 CUDA; 순차 알고리즘을 GPU에서 대규모로 실행하는 커널로 전환 |
 | 3 | CUDA at Scale for the Enterprise | 다중 CPU·다중 GPU 환경; 비동기·대화형 GPU 커널; CUDA·메모리·라이브러리를 활용한 영상 처리 등 |
 | 4 | CUDA Advanced Libraries | **cuFFT**, **cuBLAS**, **Thrust**; **cuTensor**, **cuDNN**을 활용한 ML |
 
@@ -48,13 +48,13 @@ course-04-advanced-libraries/
   assignments/
 ```
 
-각 과목 아래 **`labs/`**에는 강의 실습 코드를, **`assignments/`**에는 과제·프로젝트 풀이를 두면 나중에 다시 찾기 쉽습니다.
+각 과목 아래 **`labs/`**에는 강의 실습·스타터 코드를, **`assignments/`**에는 과제·본인 풀이를 두면 나중에 다시 찾기 쉽습니다.
 
 ## 환경 안내
 
 - C/C++ CUDA 실습에는 지원 드라이버가 설치된 **NVIDIA GPU**와 강의에서 안내하는 버전에 맞춘 **CUDA Toolkit**이 필요합니다.  
 - 1번 과목에서는 동시성 주제 일부에 **Python**을 사용합니다.  
-- 이후 과목에서는 **C/C++**, CUDA API, NVIDIA 라이브러리(cuBLAS, cuFFT, Thrust, cuDNN 등)를 실라버스에 따라 다룹니다.
+- 이후 과목에서는 **C/C++**, CUDA API, NVIDIA 라이브러리(cuBLAS, cuFFT, Thrust, cuDNN 등)를 실러버스에 따라 다룹니다.
 
 ## 학업 윤리
 
