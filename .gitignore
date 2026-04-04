@@ -5,6 +5,10 @@ cmake-build-*/
 *.o
 *.obj
 *.exe
+# nvcc -o on Linux (no extension; same basename as .cu)
+**/project/thrust_example
+**/project/radixSortThrust
+**/project/thrustSort
 *.app
 *.so
 *.dylib
