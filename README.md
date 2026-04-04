@@ -23,7 +23,7 @@
 | 3 | CUDA at Scale for the Enterprise | 다중 CPU·다중 GPU 환경; 비동기·대화형 GPU 커널; CUDA·메모리·라이브러리를 활용한 영상 처리 등 |
 | 4 | CUDA Advanced Libraries | **cuFFT**, **cuBLAS**, **Thrust**; **cuTensor**, **cuDNN**을 활용한 ML |
 
-개별 과목 수강 신청 URL은 변경될 수 있으므로, 각 과목은 **[스페셜라이제이션 페이지](https://www.coursera.org/specializations/gpu-programming)**의 과목 목록에서 여세요.
+개별 과목 수강 신청 URL은 변경될 수 있으므로, 각 과목은 **[스페셜라이제이션 페이지](https://www.coursera.org/specializations/gpu-programming)**의 과목 목록에서 선택해 수강하세요.
 
 ## 실습 프로젝트
 
