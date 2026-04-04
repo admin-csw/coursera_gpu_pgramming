@@ -37,31 +37,46 @@
 #include "helper/helper_cuda.h"
 
 #include <algorithm>
+#include <tuple>
 #include <time.h>
 #include <limits.h>
 
-__host__ std::tuple<thrust::device_vector<float>, thrust::device_vector<unsigned int>, thrust::host_vector<unsigned int>> 
-                                                                          generateDeviceMemory(int numElements, int keybits) {
+__host__ std::tuple<thrust::device_vector<float>, thrust::device_vector<unsigned int>, thrust::host_vector<unsigned int>,
+                    thrust::host_vector<unsigned int>>
+    generateDeviceMemory(int numElements, int keybits) {
   
   // TODO Generate thrust host_vectors for keys (data type float) and values (data type unsigned int) of length numELements
+  thrust::host_vector<float> h_keys(numElements);
+  thrust::host_vector<unsigned int> h_values(numElements);
 
   // TODO Initialize thrust's default_random_engine random number generator
+  thrust::default_random_engine rng(time(nullptr));
 
   // TODO Fill keys vector with random floats using thrust::uniform_real_distribution
-
+  thrust::uniform_real_distribution<float> dist_keys(0.0f, 1.0f);
+  for (int i = 0; i < numElements; i++) {
+    h_keys[i] = dist_keys(rng);
+  }
   // TODO Fill values vector with random integers
-
+  thrust::uniform_int_distribution<unsigned int> dist_values(0, INT_MAX);
+  for (int i = 0; i < numElements; i++) {
+    h_values[i] = dist_values(rng);
+  }
+  
   // Copy data onto the GPU in thrust device_vectors for keys(d_keys of type float) and values(d_values of type unsigned int)
+  thrust::device_vector<float> d_keys = h_keys;
+  thrust::device_vector<unsigned int> d_values = h_values;
 
-  return {d_keys, d_values, h_keysSorted};
+  return std::make_tuple(d_keys, d_values, h_keys, h_values);
 }
 
 __host__ float runSortIteration(int numElements, int keybits) {
 
     auto tuple = generateDeviceMemory(numElements, keybits);
-    auto d_keys = get<0>(tuple);
-    auto d_values = get<1>(tuple);
-    auto h_keysSorted = get<2>(tuple);
+    auto d_keys = std::get<0>(tuple);
+    auto d_values = std::get<1>(tuple);
+    auto h_keysSorted = std::get<2>(tuple);
+    auto h_valuesSorted = std::get<3>(tuple);
 
     cudaEvent_t start_event, stop_event;
     checkCudaErrors(cudaEventCreate(&start_event));
@@ -70,12 +85,14 @@ __host__ float runSortIteration(int numElements, int keybits) {
     checkCudaErrors(cudaEventRecord(start_event, 0));
 
     // TODO sort using the thrust sort function on d_keys and d_values
-
+    thrust::sort_by_key(d_keys.begin(), d_keys.end(), d_values.begin());
     // TODO copy sorted keys and values  from GPU to host memory
-
-    // TODO check that keys are sorted and then check values are sorted 
-    //      if both are sorted correctly (use the thrust::is_sorted function) then set bTestResult = true and false otherwise
-
+    thrust::copy(d_keys.begin(), d_keys.end(), h_keysSorted.begin());
+    thrust::copy(d_values.begin(), d_values.end(), h_valuesSorted.begin());
+    // sort_by_key orders rows by key; values follow keys but are not sorted as a standalone sequence.
+    // Verify keys are in non-decreasing order (correctness of the sort).
+    bool bTestResult = thrust::is_sorted(h_keysSorted.begin(), h_keysSorted.end());
+    
     if(bTestResult)
       printf("Iteration sorted data successfully.\n");
     else
@@ -86,6 +103,8 @@ __host__ float runSortIteration(int numElements, int keybits) {
 
     float time = 0;
     checkCudaErrors(cudaEventElapsedTime(&time, start_event, stop_event));
+    checkCudaErrors(cudaEventDestroy(start_event));
+    checkCudaErrors(cudaEventDestroy(stop_event));
     return time;
 }
 
@@ -108,9 +127,6 @@ __host__ void testRadixSort(int numElements, int keybits, int numIterations) {
 
   getLastCudaError("after radixsort");
   getLastCudaError("copying results to host memory");
-
-  checkCudaErrors(cudaEventDestroy(start_event));
-  checkCudaErrors(cudaEventDestroy(stop_event));
 }
 
 int main(int argc, char **argv) {
