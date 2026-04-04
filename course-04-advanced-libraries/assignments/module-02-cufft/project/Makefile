@@ -7,10 +7,10 @@ LDFLAGS += $(shell pkg-config --libs --static opencv)
 all: clean build
 
 build: cufft_example.cu
-	$(CXX) cufft_example.cu --std c++17 `pkg-config opencv --cflags --libs` -o memory_analysis.exe -Wno-deprecated-gpu-targets $(CXXFLAGS) -I/usr/local/cuda/include -lcuda
+	$(CXX) cufft_example.cu --std c++17 `pkg-config opencv --cflags --libs` -o cufft_example.exe -Wno-deprecated-gpu-targets $(CXXFLAGS) -I/usr/local/cuda/include -lcuda -lcufft
 
 run:
 	./cufft_example.exe $(ARGS)
 
 clean:
-	rm -f cufft_example.exe output*.txt 
+	rm -f cufft_example.exe memory_analysis.exe output*.txt

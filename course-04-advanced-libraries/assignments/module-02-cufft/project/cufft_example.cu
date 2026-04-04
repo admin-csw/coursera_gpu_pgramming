@@ -5,10 +5,13 @@
 __device__ Complex complexScaleMult(Complex a, Complex b, int scalar)
 {
     //TODO Create a variable of type Complex named c
+    Complex c;
 
     //TODO Calculate the x value for c by scalar * (a.x * b.x)
+    c.x = scalar * (a.x * b.x);
 
     //TODO Calculate the y value for c by scalar * (a.y * b.y)
+    c.y = scalar * (a.y * b.y);
 
     return c;
 }
@@ -16,9 +19,10 @@ __device__ Complex complexScaleMult(Complex a, Complex b, int scalar)
 __global__ void complexProcess(Complex *a, Complex *b, Complex *c, int size, int scalar)
 {
     // TODO calculate threadId variable
+    int threadId = blockIdx.x * blockDim.x + threadIdx.x;
 
     // TODO process complexScalarMult on values in a and b at index threadID and the passed scalar, place the result in c[threadId]
-
+    c[threadId] = complexScaleMult(a[threadId], b[threadId], scalar);
 }
 
 __host__ std::tuple<int, int> parseCommandLineArguments(int argc, char** argv) 
@@ -42,15 +46,19 @@ __host__ std::tuple<int, int> parseCommandLineArguments(int argc, char** argv)
         }
     }
     // TODO Set variable SIZE equal to N squared
+    int SIZE = N * N;
 
     return {N, SIZE};
 }
 
 __host__ Complex *generateComplexPointer(int SIZE)
 {
-    Complex *complex = new Complex(SIZE);
+    Complex *complex = new Complex[SIZE];
     // TODO populate properties x and y of variable complex at index i to 2 and 3 respectively
-
+    for (int i = 0; i < SIZE; i++) {
+        complex[i].x = 2;
+        complex[i].y = 3;
+    }
     return complex;
 }
 
@@ -68,18 +76,24 @@ __host__ void printComplexPointer(Complex *complex, int N)
 
 __host__ cufftComplex *generateCuFFTComplexPointerFromHostComplex(int mem_size, Complex *hostComplex)
 {
-    Complex *complex = new Complex(SIZE);
     // TODO populate properties x and y of variable complex at index i to 2 and 3 respectively
-
-    return complex;
+    cufftComplex *d_complex = nullptr;
+    cudaMalloc(reinterpret_cast<void **>(&d_complex), static_cast<size_t>(mem_size));
+    cudaMemcpy(d_complex, hostComplex, static_cast<size_t>(mem_size), cudaMemcpyHostToDevice);
+    return d_complex;
 }
 
 __host__ cufftHandle transformFromTimeToSignalDomain(int N, cufftComplex *d_a, cufftComplex *d_b, cufftComplex *d_c)
 {
     //TODO create a cufftHandle of size N*N and from Complex input to Complex output
+    cufftHandle plan;
+    cufftPlan2d(&plan, N, N, CUFFT_C2C);
 
     //TODO execute Complex 2 Complex Forward Transformation based on the cufftHandle for d_a, d_b, d_c 
     printf("Performing Forward Transformation of a, b, and c");
+    cufftExecC2C(plan, d_a, d_a, CUFFT_FORWARD);
+    cufftExecC2C(plan, d_b, d_b, CUFFT_FORWARD);
+    cufftExecC2C(plan, d_c, d_c, CUFFT_FORWARD);
 
     // TODO return cufftHandle for later use
     return plan;
@@ -88,12 +102,14 @@ __host__ cufftHandle transformFromTimeToSignalDomain(int N, cufftComplex *d_a, c
 __host__ Complex *transformFromSignalToTimeDomain(cufftHandle plan, int SIZE, cufftComplex *d_c)
 {
     // TODO Initialize a Complex pointer with name results of size SIZE
+    Complex *results = new Complex[SIZE];
 
     // TODO Perform Complex to Complex INVERSE transformation of cufftComplex using the passed in plan and d_c
     printf("Transforming signal back cufftExecC2C\n");
-
+    cufftExecC2C(plan, d_c, d_c, CUFFT_INVERSE);
 
     // TODO Perform memory copy from d_c into Complex variable results
+    cudaMemcpy(results, d_c, static_cast<size_t>(SIZE) * sizeof(Complex), cudaMemcpyDeviceToHost);
 
     return results;
 }
