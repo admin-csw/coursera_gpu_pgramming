@@ -1,5 +1,7 @@
 # Coursera GPU Programming — 실습 및 과제
 
+**저장소:** [admin-csw/coursera_gpu_pgramming](https://github.com/admin-csw/coursera_gpu_pgramming)
+
 **2026년 1월**, 북클럽 **나란**에서 진행한 스터디 모임과 맞물려 Coursera **[GPU Programming 스페셜라이제이션](https://www.coursera.org/specializations/gpu-programming)**(존스 홉킨스 대학교, 강사 Chancellor Thomas Pascale) 강의 실습·과제를 정리하는 저장소입니다.
 
 스터디·커뮤니티 관련 안내는 **[사이버서원 (www.cyberseowon.com)](https://www.cyberseowon.com)**에서 확인할 수 있습니다.
