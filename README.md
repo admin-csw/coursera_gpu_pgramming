@@ -1,5 +1,7 @@
 # Coursera GPU Programming — 실습 및 과제
 
+**저장소:** [admin-csw/coursera_gpu_pgramming](https://github.com/admin-csw/coursera_gpu_pgramming)
+
 **2026년 1월**, 북클럽 **나란**에서 진행한 스터디 모임과 맞물려 Coursera **[GPU Programming 스페셜라이제이션](https://www.coursera.org/specializations/gpu-programming)**(존스 홉킨스 대학교, 강사 Chancellor Thomas Pascale) 강의 실습·과제를 정리하는 저장소입니다.
 
 스터디·커뮤니티 관련 안내는 **[사이버서원 (www.cyberseowon.com)](https://www.cyberseowon.com)**에서 확인할 수 있습니다.
@@ -19,11 +21,11 @@
 | # | 과목명 | 내용 요약 |
 |---|--------|-----------|
 | 1 | Introduction to Concurrent Programming with GPUs | Python·C/C++ 동시성 소프트웨어; GPU 하드웨어·소프트웨어 아키텍처 입문 |
-| 2 | Introduction to Parallel Programming with CUDA | CPU + NVIDIA GPU용 CUDA; 순차 알고리즘을 GPU에서 대규모로 도는 커널로 전환 |
+| 2 | Introduction to Parallel Programming with CUDA | CPU + NVIDIA GPU용 CUDA; 순차 알고리즘을 GPU에서 대규모로 실행하는 커널로 전환 |
 | 3 | CUDA at Scale for the Enterprise | 다중 CPU·다중 GPU 환경; 비동기·대화형 GPU 커널; CUDA·메모리·라이브러리를 활용한 영상 처리 등 |
 | 4 | CUDA Advanced Libraries | **cuFFT**, **cuBLAS**, **Thrust**; **cuTensor**, **cuDNN**을 활용한 ML |
 
-개별 과목 수강 신청 URL은 변경될 수 있으므로, 각 과목은 **[스페셜라이제이션 페이지](https://www.coursera.org/specializations/gpu-programming)**의 과목 목록에서 여세요.
+개별 과목 수강 신청 URL은 변경될 수 있으므로, 각 과목은 **[스페셜라이제이션 페이지](https://www.coursera.org/specializations/gpu-programming)**의 과목 목록에서 선택해 수강하세요.
 
 ## 실습 프로젝트
 
@@ -48,13 +50,13 @@ course-04-advanced-libraries/
   assignments/
 ```
 
-각 과목 아래 **`labs/`**에는 강의 실습 코드를, **`assignments/`**에는 과제·프로젝트 풀이를 두면 나중에 다시 찾기 쉽습니다.
+각 과목 아래 **`labs/`**에는 강의 실습·스타터 코드를, **`assignments/`**에는 과제·본인 풀이를 두면 나중에 다시 찾기 쉽습니다.
 
 ## 환경 안내
 
 - C/C++ CUDA 실습에는 지원 드라이버가 설치된 **NVIDIA GPU**와 강의에서 안내하는 버전에 맞춘 **CUDA Toolkit**이 필요합니다.  
 - 1번 과목에서는 동시성 주제 일부에 **Python**을 사용합니다.  
-- 이후 과목에서는 **C/C++**, CUDA API, NVIDIA 라이브러리(cuBLAS, cuFFT, Thrust, cuDNN 등)를 실라버스에 따라 다룹니다.
+- 이후 과목에서는 **C/C++**, CUDA API, NVIDIA 라이브러리(cuBLAS, cuFFT, Thrust, cuDNN 등)를 실러버스에 따라 다룹니다.
 
 ## 학업 윤리
 
