@@ -1,0 +1,55 @@
+Installation Instructions
+=========================
+
+Prerequisites
+-------------
+- Linux x86_64 with an NVIDIA GPU (Compute Capability >= 1.0)
+- CUDA Toolkit (11.0 or later recommended), which includes the NPP libraries
+- g++ with C++11 support
+
+Environment Setup
+-----------------
+1. Install the CUDA Toolkit from https://developer.nvidia.com/cuda-downloads
+
+2. Ensure the CUDA binaries are on your PATH:
+     export PATH=/usr/local/cuda/bin:$PATH
+     export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+   If CUDA is installed to a non-default location, set CUDA_PATH:
+     export CUDA_PATH=/path/to/cuda
+
+3. The required CUDA Samples helper headers (helper_cuda.h, helper_string.h)
+   and NPP utility headers (Exceptions.h, ImageIO.h, ImagesCPU.h, ImagesNPP.h)
+   are included in the include/ directory. If you prefer to use headers from an
+   external cuda-samples installation, set:
+     export CUDA_SAMPLES_PATH=/path/to/cuda-samples
+
+Building
+--------
+    make
+
+   This produces bin/imageRotationNPP.
+
+   To clean build artifacts:
+    make clean
+
+Data Preparation
+----------------
+The input image must be in PGM (Portable Gray Map) format. A sample Lena.pgm
+is provided in data/. If you only have Lena.png, convert it:
+
+    python3 -c "from PIL import Image; Image.open('data/Lena.png').convert('L').save('data/Lena.pgm')"
+
+    or with ImageMagick:
+
+    convert data/Lena.png -colorspace Gray data/Lena.pgm
+
+Running
+-------
+    ./run.sh
+
+    or manually:
+
+    ./bin/imageRotationNPP --input data/Lena.pgm
+
+The rotated output is saved as Lena_rotate.pgm in the current directory.

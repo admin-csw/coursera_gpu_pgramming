@@ -12,6 +12,8 @@ cmake-build-*/
 # CUDA driver/runtime API compiled executables (no extension)
 **/driver_api/drivertest
 **/runtime_api/vector_add
+# Third-party NVIDIA CUDA samples (external dependency)
+**/cuda-samples/
 *.app
 *.so
 *.dylib
