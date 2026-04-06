@@ -44,3 +44,6 @@ venv/
 .idea/
 *.swp
 *~
+
+# Cursor
+.cursor/
