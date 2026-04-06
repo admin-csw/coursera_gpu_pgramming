@@ -9,6 +9,9 @@ cmake-build-*/
 **/project/thrust_example
 **/project/radixSortThrust
 **/project/thrustSort
+# CUDA driver/runtime API compiled executables (no extension)
+**/driver_api/drivertest
+**/runtime_api/vector_add
 *.app
 *.so
 *.dylib
